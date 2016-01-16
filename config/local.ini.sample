@@ -1,0 +1,3 @@
+#import "base.ini"
+
+; You can copy this file to "local.ini" and override all config values.
