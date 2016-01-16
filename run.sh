@@ -9,9 +9,9 @@ done
 DIR="$( cd -P "$( dirname "$SOURCE" )" && pwd )"
 cd $DIR
 
-if [ -f ./configs/local.ini ]
+if [ -f ./config/local.ini ]
     then
-        go run server.go -config ./configs/local.ini
+        go run server.go -config ./config/local.ini
     else
-        go run server.go -config ./configs/base.ini
+        go run server.go -config ./config/base.ini
 fi
