@@ -2,8 +2,10 @@ package entity
 
 import (
 	"time"
+	"errors"
 
 	"github.com/Nainterceptor/MiniProject-Ping/config"
+	"github.com/asaskevich/govalidator"
 
 	"gopkg.in/mgo.v2"
 	"gopkg.in/mgo.v2/bson"
@@ -36,4 +38,20 @@ func PingNew() *Ping {
 	ping.CreatedAt = time.Now()
 
 	return ping
+}
+
+func (p *Ping) Normalize() {
+	p.Origin = govalidator.Trim(p.Origin, "")
+}
+
+func (p *Ping) Validate() error {
+	p.Normalize()
+	if p.Origin == "" {
+		return errors.New("`origin` is empty")
+	}
+	return nil
+}
+
+func (p *Ping) Insert() error {
+	return getPingCollection().Insert(&p)
 }
