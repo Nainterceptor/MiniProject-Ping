@@ -55,3 +55,20 @@ func (p *Ping) Validate() error {
 func (p *Ping) Insert() error {
 	return getPingCollection().Insert(&p)
 }
+
+func AggregatePingOrigin(origin string, result *[]bson.M) error {
+	aggregation := getPingCollection().Pipe([]bson.M{
+		{"$match": bson.M{"origin": origin}},
+		{"$project": bson.M{"transfer_time_ms": true, "created_at": true}},
+		{"$group": bson.M{
+			"_id": bson.M{
+				"year": bson.M{ "$year": "$created_at" },
+				"month": bson.M{ "$month": "$created_at" },
+				"day": bson.M{ "$dayOfMonth": "$created_at" },
+				"hour": bson.M{ "$hour": "$created_at" },
+			},
+			"average_transfer_time_ms": bson.M{ "$avg": "$transfer_time_ms" },
+		}},
+	})
+	return aggregation.All(result)
+}

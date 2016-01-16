@@ -4,6 +4,7 @@ import (
 	"github.com/emicklei/go-restful"
 	"github.com/Nainterceptor/MiniProject-Ping/entity"
 	"net/http"
+	"gopkg.in/mgo.v2/bson"
 )
 
 func PingCreate(request *restful.Request, response *restful.Response) {
@@ -28,4 +29,14 @@ func PingCreate(request *restful.Request, response *restful.Response) {
 }
 
 func PingAverageTime(request *restful.Request, response *restful.Response) {
+	origin := request.PathParameter("origin")
+	result := []bson.M{}
+	if err := entity.AggregatePingOrigin(origin, &result); err != nil {
+		if err.Error() == "can't convert from BSON type EOO to Date" { //Fix Aggregation "not found" error
+			response.WriteErrorString(http.StatusNotFound, "Not Found")
+		}
+		response.WriteError(http.StatusInternalServerError, err)
+		return
+	}
+	response.WriteEntity(result)
 }
