@@ -7,6 +7,7 @@ import (
 	"gopkg.in/mgo.v2"
 )
 
+var StaticPath = flag.String("static_path", "static", "Localisation for static files")
 var HttpBinding = flag.String("http_binding", "localhost:1337", "IP/Port to listen HTTP Server")
 var mongoCS = flag.String("mongodb_CS", "localhost", "Connection endpoint for mongodb driver")
 var mongoName = flag.String("mongodb_DB", "PingProject", "Database to mount")

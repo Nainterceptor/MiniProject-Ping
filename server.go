@@ -52,6 +52,9 @@ func initRouter() *restful.Container {
 
 	static := new(restful.WebService)
 
+	static.Route(static.GET("/").To(controller.ServeHome))
+	static.Route(static.GET("/{subpath:*}").To(controller.ServeStatic))
+
 	routerContainer.Add(ping)
 	routerContainer.Add(static)
 
