@@ -26,10 +26,10 @@ do
                 mkdir -p tmp/build/$OS/$ARCH
                 # Move statics and config in this temp dir
                 cp -R static tmp/build/$OS/$ARCH
-                cp configs/base.ini tmp/build/$OS/$ARCH/config.ini
+                cp config/base.ini tmp/build/$OS/$ARCH/config.ini
                 # Build and move to temp dir
 
-                mv pings* tmp/build/$OS/$ARCH/ # Can't use go build -o, it's don't append .exe if windows.
+                mv MiniProject-Ping* tmp/build/$OS/$ARCH/ # Can't use go build -o, it's don't append .exe if windows.
 
                 #Compress !
                 cd tmp/build/$OS/$ARCH
