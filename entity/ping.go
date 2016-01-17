@@ -49,6 +49,9 @@ func (p *Ping) Validate() error {
 	if p.Origin == "" {
 		return errors.New("`origin` is empty")
 	}
+	if p.TransferTimeMs == 0 {
+		return errors.New("`transfer_time_ms` is empty")
+	}
 	return nil
 }
 

@@ -49,13 +49,21 @@ func TestPingNormalize(t *testing.T) {
 
 func TestPingValidation(t *testing.T) {
 	Convey("Test ping validation", t, func() {
-		ping := PingNew()
 
 		Convey("Missing origin should back an error", func() {
+			ping := PingNew()
+			ping.TransferTimeMs = 100
 			So(ping.Validate(), ShouldNotBeNil)
 		})
-		ping.Origin = "foo"
+		Convey("Missing Transfer Time should back an error", func() {
+			ping := PingNew()
+			ping.Origin = "foo"
+			So(ping.Validate(), ShouldNotBeNil)
+		})
 		Convey("Fullfilled origin should not trigger an error", func() {
+			ping := PingNew()
+			ping.Origin = "foo"
+			ping.TransferTimeMs = 100
 			So(ping.Validate(), ShouldBeNil)
 		})
 	})
