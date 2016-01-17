@@ -1,12 +1,12 @@
 package controller
 
 import (
+	"fmt"
+	"github.com/Nainterceptor/MiniProject-Ping/config"
 	"github.com/emicklei/go-restful"
 	"net/http"
-	"path"
-	"fmt"
 	"os"
-	"github.com/Nainterceptor/MiniProject-Ping/config"
+	"path"
 )
 
 func ServeStatic(req *restful.Request, resp *restful.Response) {

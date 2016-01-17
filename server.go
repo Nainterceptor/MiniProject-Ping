@@ -1,11 +1,11 @@
 package main
 
 import (
-	"net/http"
-	"github.com/emicklei/go-restful"
 	"github.com/Nainterceptor/MiniProject-Ping/config"
 	"github.com/Nainterceptor/MiniProject-Ping/controller"
 	"github.com/Nainterceptor/MiniProject-Ping/entity"
+	"github.com/emicklei/go-restful"
+	"net/http"
 	"strconv"
 )
 
@@ -26,35 +26,35 @@ func initRouter() *restful.Container {
 	ping := new(restful.WebService)
 
 	ping.
-	Path("/api/" + strconv.Itoa(VERSION_API) + "/pings").
-	Consumes(restful.MIME_JSON).
-	Produces(restful.MIME_JSON)
+		Path("/api/" + strconv.Itoa(VERSION_API) + "/pings").
+		Consumes(restful.MIME_JSON).
+		Produces(restful.MIME_JSON)
 
 	ping.Route(ping.
-	POST("").
-	To(controller.PingCreate).
-	Doc("Create a new ping").
-	Operation("PingCreate").
-	Returns(http.StatusOK, "Ping has been created", nil).
-	Returns(http.StatusBadRequest, "Can't read entity", nil).
-	Returns(http.StatusNotAcceptable, "Validation has failed", nil).
-	Returns(http.StatusInternalServerError, "Return of MongoDB Insert", nil).
-	Reads(entity.Ping{}))
+		POST("").
+		To(controller.PingCreate).
+		Doc("Create a new ping").
+		Operation("PingCreate").
+		Returns(http.StatusOK, "Ping has been created", nil).
+		Returns(http.StatusBadRequest, "Can't read entity", nil).
+		Returns(http.StatusNotAcceptable, "Validation has failed", nil).
+		Returns(http.StatusInternalServerError, "Return of MongoDB Insert", nil).
+		Reads(entity.Ping{}))
 
 	ping.Route(ping.
-	GET("origins").
-	To(controller.PingOriginList).
-	Doc("List all ping origin").
-	Operation("PingOriginList"))
+		GET("origins").
+		To(controller.PingOriginList).
+		Doc("List all ping origin").
+		Operation("PingOriginList"))
 
 	ping.Route(ping.
-	GET("/{origin}/hours").
-	To(controller.PingAverageTime).
-	Doc("Retrieve the average transfer_time_ms for an origin").
-	Operation("PingAverageTime").
-	Param(ping.PathParameter("origin", "origin of the ping").DataType("string")).
-	Returns(http.StatusOK, "Stats has been returned", nil).
-	Returns(http.StatusNotFound, "Origin not found", nil))
+		GET("/{origin}/hours").
+		To(controller.PingAverageTime).
+		Doc("Retrieve the average transfer_time_ms for an origin").
+		Operation("PingAverageTime").
+		Param(ping.PathParameter("origin", "origin of the ping").DataType("string")).
+		Returns(http.StatusOK, "Stats has been returned", nil).
+		Returns(http.StatusNotFound, "Origin not found", nil))
 
 	static := new(restful.WebService)
 

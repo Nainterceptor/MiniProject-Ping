@@ -6,12 +6,13 @@ import (
 	"github.com/vharitonsky/iniflags"
 	"gopkg.in/mgo.v2"
 )
+
 var (
-	StaticPath string
+	StaticPath  string
 	HttpBinding string
-	mongoCS string
-	mongoName string
-	MongoDB *mgo.Database
+	mongoCS     string
+	mongoName   string
+	MongoDB     *mgo.Database
 )
 
 func init() {

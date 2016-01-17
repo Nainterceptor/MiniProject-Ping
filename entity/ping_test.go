@@ -7,8 +7,8 @@ import (
 	"github.com/Nainterceptor/MiniProject-Ping/config"
 
 	. "github.com/smartystreets/goconvey/convey"
-	"gopkg.in/mgo.v2/dbtest"
 	"gopkg.in/mgo.v2"
+	"gopkg.in/mgo.v2/dbtest"
 )
 
 var Server dbtest.DBServer
@@ -54,7 +54,7 @@ func TestPingValidation(t *testing.T) {
 		Convey("Missing origin should back an error", func() {
 			So(ping.Validate(), ShouldNotBeNil)
 		})
-		ping.Origin = "foo";
+		ping.Origin = "foo"
 		Convey("Fullfilled origin should not trigger an error", func() {
 			So(ping.Validate(), ShouldBeNil)
 		})

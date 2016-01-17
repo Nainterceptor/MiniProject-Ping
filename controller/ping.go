@@ -1,10 +1,10 @@
 package controller
 
 import (
-	"github.com/emicklei/go-restful"
 	"github.com/Nainterceptor/MiniProject-Ping/entity"
-	"net/http"
+	"github.com/emicklei/go-restful"
 	"gopkg.in/mgo.v2/bson"
+	"net/http"
 )
 
 func PingCreate(request *restful.Request, response *restful.Response) {
@@ -42,6 +42,6 @@ func PingAverageTime(request *restful.Request, response *restful.Response) {
 }
 
 func PingOriginList(request *restful.Request, response *restful.Response) {
-	result := entity.GetOriginList();
-	response.WriteAsJson(result);
+	result := entity.GetOriginList()
+	response.WriteAsJson(result)
 }

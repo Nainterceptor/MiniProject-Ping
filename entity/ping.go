@@ -1,8 +1,8 @@
 package entity
 
 import (
-	"time"
 	"errors"
+	"time"
 
 	"github.com/Nainterceptor/MiniProject-Ping/config"
 	"github.com/asaskevich/govalidator"
@@ -13,7 +13,7 @@ import (
 
 func init() {
 	getPingCollection().EnsureIndex(mgo.Index{
-		Key:      []string{"origin"},
+		Key: []string{"origin"},
 	})
 }
 
@@ -25,11 +25,11 @@ type Ping struct {
 	Id               bson.ObjectId `json:"id" bson:"_id,omitempty"`
 	CreatedAt        time.Time     `json:"created_at"`
 	Origin           string        `json:"origin,omitempty" bson:",omitempty"`
-	NameLookupTimeMs int        `json:"name_lookup_time_ms,omitempty" bson",omitempty"`
-	ConnectTimeMs    int        `json:"connect_time_ms,omitempty" bson",omitempty"`
-	TransferTimeMs   int        `json:"transfer_time_ms,omitempty" bson",omitempty"`
-	TotalTimeMs      int        `json:"total_time_ms,omitempty" bson",omitempty"`
-	Status           int        `json:"status,omitempty" bson",omitempty"`
+	NameLookupTimeMs int           `json:"name_lookup_time_ms,omitempty" bson",omitempty"`
+	ConnectTimeMs    int           `json:"connect_time_ms,omitempty" bson",omitempty"`
+	TransferTimeMs   int           `json:"transfer_time_ms,omitempty" bson",omitempty"`
+	TotalTimeMs      int           `json:"total_time_ms,omitempty" bson",omitempty"`
+	Status           int           `json:"status,omitempty" bson",omitempty"`
 }
 
 func PingNew() *Ping {
@@ -62,13 +62,13 @@ func AggregatePingOrigin(origin string, result *[]bson.M) error {
 		{"$project": bson.M{"transfer_time_ms": true, "created_at": true}},
 		{"$group": bson.M{
 			"_id": bson.M{
-				"year": bson.M{ "$year": "$created_at" },
-				"month": bson.M{ "$month": "$created_at" },
-				"day": bson.M{ "$dayOfMonth": "$created_at" },
-				"hour": bson.M{ "$hour": "$created_at" },
+				"year":  bson.M{"$year": "$created_at"},
+				"month": bson.M{"$month": "$created_at"},
+				"day":   bson.M{"$dayOfMonth": "$created_at"},
+				"hour":  bson.M{"$hour": "$created_at"},
 			},
 			"date": bson.M{"$first": "$created_at"},
-			"average_transfer_time_ms": bson.M{ "$avg": "$transfer_time_ms" },
+			"average_transfer_time_ms": bson.M{"$avg": "$transfer_time_ms"},
 		}},
 		{"$sort": bson.M{
 			"date": 1,
@@ -89,7 +89,7 @@ func GetOriginList() []string {
 
 	_ = aggregation.All(&aggregationResult)
 
-	for _,element := range aggregationResult {
+	for _, element := range aggregationResult {
 		origin := element["_id"].(string)
 		result = append(result, origin)
 	}
