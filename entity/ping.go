@@ -67,8 +67,32 @@ func AggregatePingOrigin(origin string, result *[]bson.M) error {
 				"day": bson.M{ "$dayOfMonth": "$created_at" },
 				"hour": bson.M{ "$hour": "$created_at" },
 			},
+			"date": bson.M{"$first": "$created_at"},
 			"average_transfer_time_ms": bson.M{ "$avg": "$transfer_time_ms" },
+		}},
+		{"$sort": bson.M{
+			"date": 1,
 		}},
 	})
 	return aggregation.All(result)
+}
+
+func GetOriginList() []string {
+	aggregationResult := []bson.M{}
+	result := []string{}
+	aggregation := getPingCollection().Pipe([]bson.M{
+		{"$project": bson.M{"origin": true}},
+		{"$group": bson.M{
+			"_id": "$origin",
+		}},
+	})
+
+	_ = aggregation.All(&aggregationResult)
+
+	for _,element := range aggregationResult {
+		origin := element["_id"].(string)
+		result = append(result, origin)
+	}
+
+	return result
 }

@@ -20,7 +20,3 @@ func ServeStatic(req *restful.Request, resp *restful.Response) {
 		req.Request,
 		actual)
 }
-
-func ServeHome(req *restful.Request, resp *restful.Response) {
-	http.ServeFile(resp.ResponseWriter, req.Request, path.Join(*config.StaticPath, "index.html"))
-}

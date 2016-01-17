@@ -42,6 +42,12 @@ func initRouter() *restful.Container {
 	Reads(entity.Ping{}))
 
 	ping.Route(ping.
+	GET("origins").
+	To(controller.PingOriginList).
+	Doc("List all ping origin").
+	Operation("PingOriginList"))
+
+	ping.Route(ping.
 	GET("/{origin}/hours").
 	To(controller.PingAverageTime).
 	Doc("Retrieve the average transfer_time_ms for an origin").
@@ -52,7 +58,6 @@ func initRouter() *restful.Container {
 
 	static := new(restful.WebService)
 
-	static.Route(static.GET("/").To(controller.ServeHome))
 	static.Route(static.GET("/{subpath:*}").To(controller.ServeStatic))
 
 	routerContainer.Add(ping)

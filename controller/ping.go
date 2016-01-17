@@ -40,3 +40,8 @@ func PingAverageTime(request *restful.Request, response *restful.Response) {
 	}
 	response.WriteEntity(result)
 }
+
+func PingOriginList(request *restful.Request, response *restful.Response) {
+	result := entity.GetOriginList();
+	response.WriteAsJson(result);
+}
