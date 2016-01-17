@@ -17,7 +17,7 @@ func main() {
 
 	router := initRouter()
 
-	server := &http.Server{Addr: *config.HttpBinding, Handler: router}
+	server := &http.Server{Addr: config.HttpBinding, Handler: router}
 	server.ListenAndServe()
 }
 

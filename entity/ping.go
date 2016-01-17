@@ -25,11 +25,11 @@ type Ping struct {
 	Id               bson.ObjectId `json:"id" bson:"_id,omitempty"`
 	CreatedAt        time.Time     `json:"created_at"`
 	Origin           string        `json:"origin,omitempty" bson:",omitempty"`
-	NameLookupTimeMs string        `json:"name_lookup_time_ms,omitempty" bson",omitempty"`
-	ConnectTimeMs    string        `json:"connect_time_ms,omitempty" bson",omitempty"`
-	TransferTimeMs   string        `json:"transfer_time_ms,omitempty" bson",omitempty"`
-	TotalTimeMs      string        `json:"total_time_ms,omitempty" bson",omitempty"`
-	Status           string        `json:"status,omitempty" bson",omitempty"`
+	NameLookupTimeMs int        `json:"name_lookup_time_ms,omitempty" bson",omitempty"`
+	ConnectTimeMs    int        `json:"connect_time_ms,omitempty" bson",omitempty"`
+	TransferTimeMs   int        `json:"transfer_time_ms,omitempty" bson",omitempty"`
+	TotalTimeMs      int        `json:"total_time_ms,omitempty" bson",omitempty"`
+	Status           int        `json:"status,omitempty" bson",omitempty"`
 }
 
 func PingNew() *Ping {

@@ -10,9 +10,9 @@ import (
 )
 
 func ServeStatic(req *restful.Request, resp *restful.Response) {
-	actual := path.Join(*config.StaticPath, req.PathParameter("subpath"))
+	actual := path.Join(config.StaticPath, req.PathParameter("subpath"))
 	if _, err := os.Stat(actual); os.IsNotExist(err) {
-		actual = path.Join(*config.StaticPath, "index.html")
+		actual = path.Join(config.StaticPath, "index.html")
 	}
 	fmt.Printf("serving %s ... (from %s)\n", actual, req.PathParameter("subpath"))
 	http.ServeFile(
